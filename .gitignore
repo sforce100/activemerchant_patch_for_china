@@ -1,3 +1,11 @@
 pkg/*
 *.gem
 Gemfile.lock
+
+/log/*.log
+/tmp
+
+#Ignore idea setting
+/.idea
+.idea/*
+
