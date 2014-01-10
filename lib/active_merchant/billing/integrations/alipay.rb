@@ -8,15 +8,16 @@ module ActiveMerchant #:nodoc:
       module Alipay
 
         mattr_accessor :service_url
-        self.service_url = 'https://mapi.alipay.com/gateway.do?_input_charset=utf-8'
+        self.service_url = 'https://mapi.alipay.com/gateway.do?'
 
         def self.notification(post)
           Notification.new(post)
         end
-
+        
         def self.return(query_string)
           Return.new(query_string)
         end
+
       end
     end
   end
