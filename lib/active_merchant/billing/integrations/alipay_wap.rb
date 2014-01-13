@@ -8,28 +8,30 @@ module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
     module Integrations #:nodoc:
       module AlipayWap
+        extend self
         mattr_accessor :service_url
         self.service_url = 'http://wappaygw.alipay.com/service/rest.htm?'
 
-        def self.notification(post,options={})
+        def notification(post,options={})
           Notification.new(post)
         end
 
-        def self.return(query_string,options={})
+        def return(query_string,options={})
           Return.new(query_string,options)
         end
 
-        def self.execute_uri options,key
+        def execute_uri options,key
           token = get_token options,key
-          encoded_query = Helper.query_params!(options,key,token)
-          service_url + encoded_query
+          encoded_query = Helper.query_params!(options,key,token).map{|key, value| "#{key}=#{CGI.escape(value)}" }.join("&")
+          p "#{service_url}""#{encoded_query}"
         end 
 
         private 
-        def self.get_token options,key
-          encoded_query = Helper.query_params!(options,key).map{|key, value| "#{key}=#{value}" }.join("&")
-          resutl = HTTParty.get(service_url + encoded_query)
-          resolve_xml resutl
+        def get_token options,key
+          encoded_query = Helper.query_params!(options,key).map{|key, value| "#{key}=#{CGI.escape(value)}" }.join("&")
+          result = HTTParty.send('get',"#{service_url}#{encoded_query}")
+          p result,"--------------------"
+          resolve_xml result
         end
 
         def resolve_xml str
@@ -41,6 +43,7 @@ module ActiveMerchant #:nodoc:
           end
           hash["request_token"]
         end
+
       end
     end
   end

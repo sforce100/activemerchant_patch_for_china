@@ -10,11 +10,13 @@ require 'active_merchant/billing/integrations/alipay/notification'
 require 'active_merchant/billing/integrations/alipay/helper'
 require 'active_merchant/billing/integrations/alipay/return'
 require 'active_merchant/billing/integrations/alipay/sign'
+require 'active_merchant/billing/integrations/alipay'
 
 
 require 'active_merchant/billing/integrations/alipay_wap/helper'
 require 'active_merchant/billing/integrations/alipay_wap/notification'
 require 'active_merchant/billing/integrations/alipay_wap/return'
+require 'active_merchant/billing/integrations/alipay_wap'
 
 require 'active_merchant/billing/integrations/bill99'
 require 'active_merchant/billing/integrations/bill99_card'

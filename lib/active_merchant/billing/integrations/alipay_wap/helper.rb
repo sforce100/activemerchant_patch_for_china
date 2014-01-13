@@ -27,7 +27,7 @@ module ActiveMerchant
           def self.query_params!(options, key,token = "")          
             _params = {
                         req_data:       token.present? ? buidle_exec_data(token) : buidle_req_data(options),
-                        service:        ALIPAY_WAP_TOCKEN_SERVICE,
+                        service:        token.present? ? ALIPAY_WAP_TRASACTION_SERVICE : ALIPAY_WAP_TOCKEN_SERVICE,
                         sec_id:         "MD5",
                         partner:        options[:partner],
                         req_id:         "#{Time.now.to_i}",
@@ -39,9 +39,7 @@ module ActiveMerchant
           end
 
           def self.buidle_exec_data token
-            "<auth_and_execute_req>
-              <request_token>#{token}</request_token>
-            </auth_and_execute_req>"
+            "<auth_and_execute_req><request_token>#{token}</request_token></auth_and_execute_req>"
           end
 
           def self.buidle_req_data options
