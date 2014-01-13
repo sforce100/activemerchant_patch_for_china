@@ -1,5 +1,6 @@
 require 'cgi'
 require 'digest/md5'
+require 'active_merchant/billing/integrations/helper'
 
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
@@ -10,7 +11,6 @@ module ActiveMerchant #:nodoc:
           CREATE_PARTNER_TRADE_BY_BUYER = 'create_partner_trade_by_buyer'
           TRADE_CREATE_BY_BUYER = 'trade_create_by_buyer'
           CREATE_FOREIGN_TRADE = 'create_forex_trade'
-
           ###################################################
           # common
           ###################################################
@@ -75,12 +75,17 @@ module ActiveMerchant #:nodoc:
 
           def sign
             add_field('sign',
-                      Digest::MD5.hexdigest((@fields.sort.collect{|s|s[0]+"="+CGI.unescape(s[1])}).join("&") + KEY)
+                      Digest::MD5.hexdigest((@fields.sort.collect{|s|s[0]+"="+CGI.unescape(s[1])}).join("&") + ActiveMerchant::Billing::Integrations::Alipay::Helper.KEY)
                      )
             add_field('sign_type', 'MD5')
             nil
           end
 
+          def query_params(options)            
+            options.map do |k,v|
+              add_field(k,v)
+            end
+          end
         end
       end
     end

@@ -7,22 +7,6 @@ module ActiveMerchant
           ALIPAY_WAP_TOCKEN_SERVICE = 'alipay.wap.trade.create.direct'
           ALIPAY_WAP_TRASACTION_SERVICE = 'alipay.wap.auth.authAndExecute'
           ALIPAY_WAP_VERSION = "2.0"
-          # mapping :account, 'partner'
-          # mapping :order, 'out_trade_no'
-          # mapping :seller_account_name, :email => 'seller_account_name',
-          #                  :id => 'seller_id'
-          # mapping :buyer, :email => 'buyer_email',
-          #                 :id => 'buyer_id'
-          # mapping :notify_url, 'notify_url'
-          # mapping :call_back_url, 'call_back_url'
-          # mapping :merchant_url, 'merchant_url'
-          # mapping :out_user,  'out_user'
-          # mapping :pay_expire,  'pay_expire'
-          # mapping :subject, 'subject'
-          # mapping :charset, '_input_charset'
-          # mapping :service, 'service'
-
-          # mapping :total_fee, 'total_fee'
           
           def self.query_params!(options, key,token = "")          
             _params = {

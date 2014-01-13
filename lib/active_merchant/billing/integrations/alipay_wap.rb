@@ -23,14 +23,13 @@ module ActiveMerchant #:nodoc:
         def execute_uri options,key
           token = get_token options,key
           encoded_query = Helper.query_params!(options,key,token).map{|key, value| "#{key}=#{CGI.escape(value)}" }.join("&")
-          p "#{service_url}""#{encoded_query}"
+          "#{service_url}""#{encoded_query}"
         end 
 
         private 
         def get_token options,key
           encoded_query = Helper.query_params!(options,key).map{|key, value| "#{key}=#{CGI.escape(value)}" }.join("&")
           result = HTTParty.send('get',"#{service_url}#{encoded_query}")
-          p result,"--------------------"
           resolve_xml result
         end
 
