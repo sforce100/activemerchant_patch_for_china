@@ -3,14 +3,10 @@ require 'spec_helper'
 describe ActiveMerchant::Billing::Integrations::AlipayWap do
   context 'fields' do
 
-    # hash = {
-    #   partner: "2088201962733496", subject: "test", out_trade_no: "order_no_123456",
-    #   total_fee: "0.01", seller_account_name: "pay@xiangrikui.com",
-    #   call_back_url: "www.qq.com",notify_url: "www.alipay.com",
-    #   out_user: "", merchant_url: "www.baidu.com", pay_expire: "86400"
-    # }
+    hash = {:subject=>"test", :out_trade_no=>"138968323980539", :total_fee=>"0.01", :payment_type=>"2", :seller_email=>"pay@xiangrikui.com", :seller_account_name=>"pay@xiangrikui.com", :_input_charset=>"utf-8", :service=>"create_direct_pay_by_user", :partner=>"2088201962733496", :return_url=>nil, :call_back_url=>"www.baidu.com", :merchant_url=>"www.404.com", :pay_expire=>nil, :notify_url=>"http://pay.xiangrikui.com:3000/payment/transaction/alipay/notify"}
+
   
-    # a = ActiveMerchant::Billing::Integrations::AlipayWap.execute_uri(hash,"rjllq1mf24igskb9y8jaeko6pucsc7g9")
+    a = ActiveMerchant::Billing::Integrations::AlipayWap.execute_uri(hash,"rjllq1mf24igskb923y8jaeko6pucsc7g9")
     # a.include? ("http://wappaygw.alipay.com/service/rest.htm?").should be_true
   end
 end

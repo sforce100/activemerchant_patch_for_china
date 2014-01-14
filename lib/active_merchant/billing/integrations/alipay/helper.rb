@@ -85,6 +85,7 @@ module ActiveMerchant #:nodoc:
             options.map do |k,v|
               add_field(k,v)
             end
+            @fields.map{|k,v|@fields.delete(k) if v.blank?}
           end
         end
       end
