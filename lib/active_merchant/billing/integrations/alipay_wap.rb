@@ -29,13 +29,11 @@ module ActiveMerchant #:nodoc:
         private 
         def get_token options,key
           encoded_query = Helper.query_params!(options,key).map{|key, value| "#{key}=#{CGI.escape(value)}" }.join("&")
-          logger.info("get token uri #{service_url}#{encoded_query}")
           result = HTTParty.send('get',"#{service_url}#{encoded_query}")
           resolve_xml result
         end
 
         def resolve_xml str
-          logger.info("response body #{str}")
           xml = str.body.split("&").collect{|v|URI.decode(v.gsub('res_data=','')) if v.include?("res_data")}.compact.first
           doc = Nokogiri::XML(xml)
           hash = {}

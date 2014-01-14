@@ -20,7 +20,6 @@ module ActiveMerchant #:nodoc:
         end
 
         def execute_uri options,key
-          logger.info("redirect to alipay options:#{options}")
           "#{service_url}#{buidle_uri options,key}"
         end
 
