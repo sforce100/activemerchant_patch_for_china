@@ -17,7 +17,7 @@ module ActiveMerchant #:nodoc:
           Nokogiri::XML(params["notify_data"]).root.children.each do |v|
             self.class_eval <<-EOF
               def #{v.name}
-                #{v.text}
+                '#{v.text}'
               end
             EOF
           end
