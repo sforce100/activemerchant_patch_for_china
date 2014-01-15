@@ -21,6 +21,7 @@ module ActiveMerchant #:nodoc:
               end
             EOF
           end
+        end
 
           private
           # Take the posted data and move the relevant data into a hash
