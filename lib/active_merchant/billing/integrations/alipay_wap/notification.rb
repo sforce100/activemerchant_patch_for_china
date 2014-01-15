@@ -1,5 +1,6 @@
 require 'net/http'
 require 'active_merchant/billing/integrations/alipay_wap/sign'
+require 'nokogiri'
 
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
@@ -8,8 +9,15 @@ module ActiveMerchant #:nodoc:
         class Notification < ActiveMerchant::Billing::Integrations::Notification
           include Sign
 
-          private
+          Nokogiri::XML(params["notify_data"]).root.children.each do |v|
+            self.class_eval <<-EOF
+              def #{v.name}
+                #{v.text}
+              end
+            EOF
+          end
 
+          private
           # Take the posted data and move the relevant data into a hash
           def parse(post)
             @raw = post
