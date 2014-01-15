@@ -7,8 +7,13 @@ module ActiveMerchant #:nodoc:
     module Integrations #:nodoc:
       module AlipayWap
         class Notification < ActiveMerchant::Billing::Integrations::Notification
-          include Sign
+        include Sign
 
+        def initialize(params)
+          resolve_xml params
+        end
+
+        def resolve_xml params
           Nokogiri::XML(params["notify_data"]).root.children.each do |v|
             self.class_eval <<-EOF
               def #{v.name}
