@@ -1,6 +1,6 @@
 require 'net/http'
 require 'active_merchant/billing/integrations/alipay_wap/sign'
-require 'nokogiri'
+require "rexml/document"
 
 module ActiveMerchant #:nodoc:
   module Billing #:nodoc:
@@ -8,13 +8,14 @@ module ActiveMerchant #:nodoc:
       module AlipayWap
         class Notification < ActiveMerchant::Billing::Integrations::Notification
         include Sign
+        include REXML
 
         def initialize(params)
           resolve_xml params
         end
 
         def resolve_xml params
-          Nokogiri::XML(params["notify_data"]).root.children.each do |v|
+          Document.new(params["notify_data"]).get_elements("notify").first.each_child do |v|
             self.class_eval <<-EOF
               def #{v.name}
                 '#{v.text}'
