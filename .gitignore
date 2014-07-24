@@ -8,4 +8,4 @@ Gemfile.lock
 #Ignore idea setting
 /.idea
 .idea/*
-
+*.DS_Store
